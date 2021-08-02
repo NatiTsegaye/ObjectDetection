@@ -1,4 +1,4 @@
-from flask import Flask, Response, request
+from flask import Flask, request
 from flask_restful import Resource
 import tensorflow as tf
 import numpy as np
@@ -17,6 +17,7 @@ label_map ={'Crab': 0,
 model = tf.keras.models.load_model('Main/api/myModel')
 
 def prediction(image):    
+
     #img = tf.keras.preprocessing.image.load_img(image_path, target_size=(224, 224))
     img = image.resize((224,224))
     x = tf.keras.preprocessing.image.img_to_array(img)
@@ -39,9 +40,8 @@ class ImageApi(Resource):
     def post(self):
         image = request.files.get('image','')
         img = Image.open(image)
-        #filename = image.filename
-        #file_path = os.path.join('Main/api/uploads',filename)
-        #image.save(file_path)
         result = prediction(img)
-        #os.remove('Main/api/tr.jpg')
         return {'Response': result}
+
+    def get(self):
+        return {'Resource':'APi Running'}
