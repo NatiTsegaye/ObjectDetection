@@ -2,7 +2,7 @@
 from flask import Flask
 from flask_restful import Api
 import os
-from Main.Routes.routes import initialize_routes
+from Routes.routes import initialize_routes
 from flask_cors import CORS
 
 # Place where app is defined
@@ -16,3 +16,7 @@ CORS(app, resources={r'/*':{"origins": "*"}},allow_headers=[
 
 initialize_routes(api)
 
+
+if __name__ == '__main__':
+    # Running app in debug mode
+    app.run(debug=True)
